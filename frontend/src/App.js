@@ -366,18 +366,50 @@ function App() {
 
   // Share Function
   const shareStation = (station) => {
-    if (navigator.share) {
+    const shareText = `🎵 Listen to ${station.name} - ${station.description} (${station.frequency}) at ${window.location.href}`;
+    
+    if (navigator.share && navigator.canShare && navigator.canShare({ text: shareText })) {
       navigator.share({
-        title: `Listen to ${station.name}`,
+        title: `🇮🇪 ${station.name} - Irish Radio Live`,
         text: `${station.description} - ${station.frequency}`,
         url: window.location.href
+      }).catch(err => {
+        console.log('Error sharing:', err);
+        copyToClipboard(shareText);
       });
     } else {
-      // Fallback - copy to clipboard
-      const text = `Listen to ${station.name} - ${station.description} at ${window.location.href}`;
-      navigator.clipboard.writeText(text);
-      alert('Station link copied to clipboard!');
+      copyToClipboard(shareText);
     }
+  };
+
+  const copyToClipboard = (text) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('📋 Station link copied to clipboard!');
+      }).catch(() => {
+        fallbackCopyTextToClipboard(text);
+      });
+    } else {
+      fallbackCopyTextToClipboard(text);
+    }
+  };
+
+  const fallbackCopyTextToClipboard = (text) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      alert('📋 Station link copied to clipboard!');
+    } catch (err) {
+      alert('❌ Unable to copy to clipboard. Please share manually.');
+    }
+    document.body.removeChild(textArea);
   };
 
   // Mock Now Playing Info (in real app, you'd fetch from API)
