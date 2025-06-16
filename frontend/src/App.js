@@ -443,25 +443,42 @@ function App() {
       
       setTimeout(() => {
         if (audioRef.current) {
+          audioRef.current.crossOrigin = "anonymous";
           audioRef.current.src = station.url;
           audioRef.current.volume = volume;
-          audioRef.current.play()
-            .then(() => {
-              setIsPlaying(true);
-              setIsLoading(false);
-            })
-            .catch((err) => {
-              console.error('Playback error:', err);
-              setError(`Failed to play ${station.name}. This station might not be available right now.`);
-              setIsLoading(false);
-              setIsPlaying(false);
-            });
+          
+          const playPromise = audioRef.current.play();
+          
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                setIsPlaying(true);
+                setIsLoading(false);
+                setError('');
+              })
+              .catch((err) => {
+                console.error('Playback error:', err);
+                let errorMessage = `Unable to play ${station.name}.`;
+                
+                if (err.name === 'NotSupportedError') {
+                  errorMessage += ' This stream format may not be supported by your browser.';
+                } else if (err.name === 'NotAllowedError') {
+                  errorMessage += ' Please click the play button to start audio.';
+                } else {
+                  errorMessage += ' The station might be temporarily unavailable.';
+                }
+                
+                setError(errorMessage);
+                setIsLoading(false);
+                setIsPlaying(false);
+              });
+          }
         }
-      }, 100);
+      }, 200);
       
     } catch (err) {
       console.error('Error playing station:', err);
-      setError(`Failed to play ${station.name}`);
+      setError(`Failed to connect to ${station.name}. Please try another station.`);
       setIsLoading(false);
       setIsPlaying(false);
     }
