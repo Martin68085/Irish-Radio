@@ -342,19 +342,23 @@ function App() {
 
   // Sleep Timer Functions
   const setSleepTimerMinutes = (minutes) => {
-    setSleepTimer(minutes);
-    setSleepTimerActive(minutes > 0);
+    const mins = parseInt(minutes);
+    setSleepTimer(mins);
     
     if (sleepTimerRef.current) {
       clearTimeout(sleepTimerRef.current);
     }
     
-    if (minutes > 0) {
+    if (mins > 0) {
+      setSleepTimerActive(true);
       sleepTimerRef.current = setTimeout(() => {
         pauseStation();
         setSleepTimerActive(false);
         setSleepTimer(0);
-      }, minutes * 60 * 1000);
+        alert('⏰ Sleep timer has stopped the radio');
+      }, mins * 60 * 1000);
+    } else {
+      setSleepTimerActive(false);
     }
   };
 
