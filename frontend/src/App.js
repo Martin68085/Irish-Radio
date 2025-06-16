@@ -508,32 +508,63 @@ function App() {
     };
   }, []);
 
-  // Audio event listeners
+  // Audio event listeners with better error handling
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      const handleError = () => {
-        setError(`Failed to load ${currentStation?.name || 'station'}`);
+      const handleError = (e) => {
+        console.error('Audio error:', e);
+        const error = e.target.error;
+        let errorMessage = `Failed to load ${currentStation?.name || 'station'}`;
+        
+        if (error) {
+          switch (error.code) {
+            case error.MEDIA_ERR_ABORTED:
+              errorMessage += ' - Playback was aborted';
+              break;
+            case error.MEDIA_ERR_NETWORK:
+              errorMessage += ' - Network error occurred';
+              break;
+            case error.MEDIA_ERR_DECODE:
+              errorMessage += ' - Audio format not supported';
+              break;
+            case error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+              errorMessage += ' - Stream not available';
+              break;
+            default:
+              errorMessage += ' - Unknown error occurred';
+          }
+        }
+        
+        setError(errorMessage + '. Please try another station.');
         setIsLoading(false);
         setIsPlaying(false);
       };
       
       const handleLoadStart = () => {
         setIsLoading(true);
+        setError('');
       };
       
       const handleCanPlay = () => {
         setIsLoading(false);
       };
 
+      const handleLoadedData = () => {
+        setIsLoading(false);
+        setError('');
+      };
+
       audio.addEventListener('error', handleError);
       audio.addEventListener('loadstart', handleLoadStart);
       audio.addEventListener('canplay', handleCanPlay);
+      audio.addEventListener('loadeddata', handleLoadedData);
 
       return () => {
         audio.removeEventListener('error', handleError);
         audio.removeEventListener('loadstart', handleLoadStart);
         audio.removeEventListener('canplay', handleCanPlay);
+        audio.removeEventListener('loadeddata', handleLoadedData);
       };
     }
   }, [currentStation]);
