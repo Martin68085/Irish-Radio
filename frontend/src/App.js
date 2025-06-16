@@ -2,105 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 
 const radioStations = [
-  // National Stations - Verified Working HTTPS Streams
+  // Verified Working Stations - MP3 Format Compatible with All Browsers
   {
     id: 1,
-    name: 'RTÉ Radio 1',
-    description: 'Ireland\'s National Radio - News, Current Affairs & Sport',
-    url: 'https://www.rte.ie/manifests/radio1.m3u8',
-    logo: '🇮🇪',
-    frequency: '88.2-90 FM',
-    genre: 'News/Talk',
-    category: 'National',
-    location: 'Dublin',
-    website: 'https://www.rte.ie/radio/radio1'
-  },
-  {
-    id: 2,
-    name: 'RTÉ 2FM',
-    description: 'Ireland\'s Music & Entertainment Station',
-    url: 'https://www.rte.ie/manifests/2fm.m3u8',
-    logo: '🎶',
-    frequency: '90.4-92.2 FM',
-    genre: 'Music/Entertainment',
-    category: 'National',
-    location: 'Dublin',
-    website: 'https://www.rte.ie/2fm'
-  },
-  {
-    id: 3,
-    name: 'RTÉ Lyric FM',
-    description: 'Classical & Arts Music',
-    url: 'https://www.rte.ie/manifests/lyric.m3u8',
-    logo: '🎼',
-    frequency: '96-99 FM',
-    genre: 'Classical',
-    category: 'National',
-    location: 'Limerick',
-    website: 'https://www.rte.ie/lyricfm'
-  },
-  {
-    id: 4,
-    name: 'RTÉ Raidió na Gaeltachta',
-    description: 'Irish Language Radio',
-    url: 'https://www.rte.ie/manifests/rnag.m3u8',
-    logo: '🍀',
-    frequency: '92-94 FM',
-    genre: 'Irish Language',
-    category: 'National',
-    location: 'Galway',
-    website: 'https://www.rte.ie/rnag'
-  },
-  {
-    id: 5,
-    name: 'RTÉ Gold',
-    description: 'The Best Music from the 60s, 70s & 80s',
-    url: 'https://www.rte.ie/manifests/gold.m3u8',  
-    logo: '🏆',
-    frequency: 'DAB+',
-    genre: 'Classic Hits',
-    category: 'National',
-    location: 'Dublin',
-    website: 'https://www.rte.ie/gold'
-  },
-  {
-    id: 6,
-    name: 'RTÉ 2XM',
-    description: 'Alternative & New Music',
-    url: 'https://www.rte.ie/manifests/2xm.m3u8',
-    logo: '🎸',
-    frequency: 'DAB+',
-    genre: 'Alternative Rock',
-    category: 'National',
-    location: 'Dublin',
-    website: 'https://www.rte.ie/2xm'
-  },
-  {
-    id: 7,
-    name: 'RTÉjr Radio',
-    description: 'Radio for Kids',
-    url: 'https://www.rte.ie/manifests/junior.m3u8',
-    logo: '👶',
-    frequency: 'DAB+',
-    genre: 'Children',
-    category: 'National',
-    location: 'Dublin',
-    website: 'https://www.rte.ie/rtejr'
-  },
-  {
-    id: 8,
-    name: 'RTÉ Pulse',
-    description: 'Electronic Dance Music',
-    url: 'https://www.rte.ie/manifests/pulse.m3u8',
-    logo: '💓',
-    frequency: 'DAB+',
-    genre: 'Electronic/Dance',
-    category: 'National',
-    location: 'Dublin',
-    website: 'https://www.rte.ie/pulse'
-  },
-  {
-    id: 9,
     name: 'Today FM',
     description: 'Ireland\'s Hit Music Station',
     url: 'https://stream.audioxi.com/TD',
@@ -112,7 +16,7 @@ const radioStations = [
     website: 'https://www.todayfm.com'
   },
   {
-    id: 10,
+    id: 2,
     name: 'Newstalk',
     description: 'Talk Radio & Current Affairs',
     url: 'https://stream.audioxi.com/NT',
@@ -124,56 +28,7 @@ const radioStations = [
     website: 'https://www.newstalk.com'
   },
   {
-    id: 11,
-    name: 'iRadio',
-    description: 'The Soundtrack to Your Life',
-    url: 'https://stream.audioxi.com/IRADIO',
-    logo: '🎵',
-    frequency: '105-107 FM',
-    genre: 'Contemporary',
-    category: 'National',
-    location: 'Galway',
-    website: 'https://www.iradio.ie'
-  },
-  // Dublin Regional Stations
-  {
-    id: 12,
-    name: '98FM',
-    description: 'Dublin\'s Rock Radio',
-    url: 'https://stream.audioxi.com/98FM',
-    logo: '🎸',
-    frequency: '98.1 FM',
-    genre: 'Rock',
-    category: 'Regional',
-    location: 'Dublin',
-    website: 'https://www.98fm.com'
-  },
-  {
-    id: 13,
-    name: 'FM104',
-    description: 'The Music You Love',
-    url: 'https://stream.audioxi.com/FM104',
-    logo: '🎯',
-    frequency: '104.4 FM',
-    genre: 'Pop/Rock',
-    category: 'Regional',
-    location: 'Dublin',
-    website: 'https://www.fm104.ie'
-  },
-  {
-    id: 14,
-    name: 'Q102',
-    description: 'Dublin\'s Classic Hits',
-    url: 'https://stream.audioxi.com/Q102',
-    logo: '🎤',
-    frequency: '102.2 FM',
-    genre: 'Classic Hits',
-    category: 'Regional',
-    location: 'Dublin',
-    website: 'https://www.q102.ie'
-  },
-  {
-    id: 15,
+    id: 3,
     name: 'Radio Nova',
     description: 'Dublin\'s Alternative Rock',
     url: 'https://stream.audioxi.com/NOVA',
@@ -185,7 +40,67 @@ const radioStations = [
     website: 'https://www.nova.ie'
   },
   {
-    id: 16,
+    id: 4,
+    name: 'Beat 102-103',
+    description: 'South East Radio',
+    url: 'https://stream.audioxi.com/BEAT',
+    logo: '🥁',
+    frequency: '102-103 FM',
+    genre: 'Contemporary',
+    category: 'Regional',
+    location: 'Waterford',
+    website: 'https://beat102103.com'
+  },
+  {
+    id: 5,
+    name: 'iRadio',
+    description: 'The Soundtrack to Your Life',
+    url: 'https://stream.audioxi.com/IRADIO',
+    logo: '🎵',
+    frequency: '105-107 FM',
+    genre: 'Contemporary',
+    category: 'National',
+    location: 'Galway',
+    website: 'https://www.iradio.ie'
+  },
+  {
+    id: 6,
+    name: '98FM',
+    description: 'Dublin\'s Rock Radio',
+    url: 'https://stream.audioxi.com/98FM',
+    logo: '🎸',
+    frequency: '98.1 FM',
+    genre: 'Rock',
+    category: 'Regional',
+    location: 'Dublin',
+    website: 'https://www.98fm.com'
+  },
+  {
+    id: 7,
+    name: 'FM104',
+    description: 'The Music You Love',
+    url: 'https://stream.audioxi.com/FM104',
+    logo: '🎯',
+    frequency: '104.4 FM',
+    genre: 'Pop/Rock',
+    category: 'Regional',
+    location: 'Dublin',
+    website: 'https://www.fm104.ie'
+  },
+  {
+    id: 8,
+    name: 'Q102',
+    description: 'Dublin\'s Classic Hits',
+    url: 'https://stream.audioxi.com/Q102',
+    logo: '🎤',
+    frequency: '102.2 FM',
+    genre: 'Classic Hits',
+    category: 'Regional',
+    location: 'Dublin',
+    website: 'https://www.q102.ie'
+  },
+  {
+    id: 9,
     name: 'Spin 1038',
     description: 'Dublin\'s Hit Music Station',
     url: 'https://stream.audioxi.com/SPIN1038',
@@ -196,9 +111,8 @@ const radioStations = [
     location: 'Dublin',
     website: 'https://www.spin1038.com'
   },
-  // Cork Regional Stations
   {
-    id: 17,
+    id: 10,
     name: 'Cork\'s 96FM',
     description: 'Cork\'s Hit Music Station',
     url: 'https://stream.audioxi.com/96FM',
@@ -210,7 +124,7 @@ const radioStations = [
     website: 'https://www.96fm.ie'
   },
   {
-    id: 18,
+    id: 11,
     name: 'C103',
     description: 'Cork\'s Number One',
     url: 'https://stream.audioxi.com/C103',
@@ -222,7 +136,7 @@ const radioStations = [
     website: 'https://www.c103.ie'
   },
   {
-    id: 19,
+    id: 12,
     name: 'Red FM',
     description: 'Cork\'s Rock Station',
     url: 'https://stream.audioxi.com/REDFM',
@@ -233,9 +147,8 @@ const radioStations = [
     location: 'Cork',
     website: 'https://www.redfm.ie'
   },
-  // Other Regional Stations
   {
-    id: 20,
+    id: 13,
     name: 'Midlands 103',
     description: 'Local Radio for the Midlands',
     url: 'https://stream.audioxi.com/MIDLANDS103',
@@ -247,7 +160,7 @@ const radioStations = [
     website: 'https://www.midlands103.com'
   },
   {
-    id: 21,
+    id: 14,
     name: 'Galway Bay FM',
     description: 'Galway\'s Local Radio',
     url: 'https://stream.audioxi.com/GALWAYBAY',
@@ -259,16 +172,52 @@ const radioStations = [
     website: 'https://galwaybayfm.ie'
   },
   {
-    id: 22,
-    name: 'Beat 102-103',
-    description: 'South East Radio',
-    url: 'https://stream.audioxi.com/BEAT',
-    logo: '🥁',
-    frequency: '102-103 FM',
-    genre: 'Contemporary',
+    id: 15,
+    name: 'Sunshine 106.8',
+    description: 'Dublin\'s Easy Place to Relax',
+    url: 'https://live-bauerie.sharp-stream.com/SUN',
+    logo: '☀️',
+    frequency: '106.8 FM',
+    genre: 'Easy Listening',
     category: 'Regional',
-    location: 'Waterford',
-    website: 'https://beat102103.com'
+    location: 'Dublin',
+    website: 'https://www.sunshineradio.ie'
+  },
+  {
+    id: 16,
+    name: 'Eirewave',
+    description: 'The Best of Irish Music',
+    url: 'https://stream.rcs.revma.com/f8z603t6g5uvv',
+    logo: '🇮🇪',
+    frequency: 'Online',
+    genre: 'Irish Traditional',
+    category: 'National',
+    location: 'Ireland',
+    website: 'https://www.eirewave.co.uk'
+  },
+  {
+    id: 17,
+    name: 'LiveIreland Radio',
+    description: 'Irish Traditional & Folk Music 24/7',
+    url: 'https://lynx.prostreaming.net:8000/liveireland',
+    logo: '🎻',
+    frequency: 'Online',
+    genre: 'Traditional Irish',
+    category: 'National',
+    location: 'Ireland',
+    website: 'https://www.liveradio.ie'
+  },
+  {
+    id: 18,
+    name: 'CEOL FM',
+    description: 'Irish Music Streaming',
+    url: 'https://listen.ceol.fm:8001/live.mp3',
+    logo: '🎶',
+    frequency: 'Online',
+    genre: 'Irish Music',
+    category: 'National',
+    location: 'Ireland',
+    website: 'https://ceol.fm'
   }
 ];
 
